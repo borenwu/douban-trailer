@@ -4,10 +4,374 @@ block title
     title Koa Douban 首页
 
 block content
-    .container
+
+    style.
+        body {
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .page-wrapper {
+            background-color: #f0f0f0;
+        }
+
+        .admin-wrapper {
+            background: #fff;
+        }
+
+        .admin-wrapper td {
+            padding: 5px;
+        }
+
+        header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            background: black;
+            color: #E7DACB;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 120px;
+            z-index: 500;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                height: 50px;
+            }
+
+            .sidebar {
+                position: -webkit-sticky;
+                position: sticky;
+                top: 4rem;
+                z-index: 1000;
+                height: calc(100vh - 4rem);
+                border-right: 1px solid rgba(0, 0, 0, .1);
+                order: 0;
+                border-bottom: 1px solid rgba(0, 0, 0, .1);
+            }
+
+            .cat-links {
+                display: block !important;
+                max-height: calc(100vh - 9rem);
+                overflow-y: auto;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                margin-right: -15px;
+                margin-left: -15px;
+            }
+        }
+
+        .sidebar {
+            font-size: 1.5rem;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: .25rem 1.5rem;
+            font-weight: 500;
+            color: rgba(0, 0, 0, .65);
+        }
+
+        .sidebar .nav > li > a {
+            display: block;
+            padding: .25rem 1.5rem;
+            font-size: 90%;
+            color: rgba(0, 0, 0, .65);
+        }
+
+        .sidebar-item.active > .sidebar-inner {
+            display: block;
+        }
+
+        .card {
+            margin-bottom: 1.5rem;
+        }
+
+        .switcher {
+            position: relative;
+            padding: 1rem 15px;
+            margin-right: -15px;
+            margin-left: -15px;
+            border-bottom: 1px solid rgba(0, 0, 0, .05);
+        }
+
+        .sidebar-toggle {
+            line-height: 1;
+            color: #212529;
+        }
+
+        .p-0 {
+            padding: 0 !important;
+        }
+
+        .ml-3, .mx-3 {
+            margin-left: 1rem !important;
+        }
+
+        .btn-link {
+            font-weight: 400;
+            color: #007bff;
+            background-color: transparent;
+        }
+
+        .card-item {
+            padding: 0;
+        }
+
+        .card {
+            border: none;
+            margin-bottom: 0;
+        }
+
+        .card .poster {
+            position: relative;
+        }
+
+        .card .poster svg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            right: auto;
+            bottom: auto;
+            margin-top: -27.5px;
+            margin-left: -27.5px;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+        }
+
+        .card .poster:hover svg {
+            -webkit-transform: scale(0.7, 0.7) translate3d(-105px, 0, 0);
+            transform: scale(0.7, 0.7) translate3d(-105px, 0, 0);
+        }
+
+        .card .poster:hover svg circle.play {
+            fill: white !important;
+        }
+
+        .card .poster:hover svg polygon.play-inner {
+            fill: black !important;
+            position: relative;
+            z-index: 999;
+        }
+
+        .card .poster span {
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+        }
+
+        .card .poster:hover span {
+            opacity: 1;
+        }
+
+        .card .poster > span:before {
+            content: '立刻播放视频';
+            display: block;
+            height: 55px;
+            width: 55px;
+            border-radius: 27.5px;
+            border: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            right: auto;
+            bottom: auto;
+            z-index: 9999;
+            line-height: 55px;
+            overflow: hidden;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            font-size: 18px;
+            text-transform: uppercase;
+            padding-right: 25px;
+            text-align: right;
+            -webkit-transform: translate3d(-27.5px, -27.5px, 0);
+            transform: translate3d(-27.5px, -27.5px, 0);
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+        }
+
+        .card .poster:hover > span:before {
+            width: 200px;
+            -webkit-transform: translate3d(-50%, -27.5px, 0);
+            transform: translate3d(-50%, -27.5px, 0);
+        }
+
+        .card a {
+            text-decoration: none;
+            color: #666;
+        }
+
+        .card a:hover {
+            text-decoration: none;
+            color: #999;
+        }
+
+        .card-body {
+            padding: 1rem;
+        }
+
+        .card .card-img-top {
+            border-radius: 0;
+        }
+
+        .card-desc {
+            display: none;
+        }
+
+        .card-title {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 576px) {
+            .card-desc {
+                display: inline-block;
+                height: auto;
+                overflow-y: auto;
+            }
+        }
+    include ./includes/header
+
+    .container-fluid
         .row
-            .col-md-8
-                h1 Hi #{you}
-                p This is #{me}
-            .col-md-4
-                h3 测试动态Pug模板引擎中间件
+            .col-12.col-md-3.col-xl-2.sidebar
+                .collapse.cat-links
+                    .sidebar-item.active
+                        a.sidebar-link(href='/') Links
+                        ul.nav.sidebar-inner
+                            li.active.sidebar-inner-active
+                                a(href='/') Link1
+                            li.sidebar-inner-active
+                                a(href='/') Link2
+            .col-12.col-md-9.col-xl-9.py-md-3.pl-md-5.content
+                .row
+                    .col-md-6
+                        .card
+                            img.card-img-top(src='http://o9spjqu1b.bkt.clouddn.com/5570778b-f7fc-4bcf-9df3-e47a6954b75a',
+                            data-video='http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4')
+                            .card-body
+                                h4.card-title 这是电影标题
+                                p.card-desc 这是电影描述
+                            .card-footer
+                                small.text-muted 1 天前更新
+                    .col-md-6
+                        .card
+                            img.card-img-top(src='http://o9spjqu1b.bkt.clouddn.com/5570778b-f7fc-4bcf-9df3-e47a6954b75a',
+                            data-video='http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4')
+                            .card-body
+                                h4.card-title 这是电影标题
+                                p.card-desc 这是电影描述
+                            .card-footer
+                                small.text-muted 1 天前更新
+                .row
+                    .col-md-6
+                        .card
+                            img.card-img-top(src='http://o9spjqu1b.bkt.clouddn.com/5570778b-f7fc-4bcf-9df3-e47a6954b75a',
+                            data-video='http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4')
+                            .card-body
+                                h4.card-title 这是电影标题
+                                p.card-desc 这是电影描述
+                            .card-footer
+                                small.text-muted 1 天前更新
+                    .col-md-6
+                        .card
+                            img.card-img-top(src='http://o9spjqu1b.bkt.clouddn.com/5570778b-f7fc-4bcf-9df3-e47a6954b75a',
+                            data-video='http://video.iblack7.com/tgGnZRn3W4Ajw6PGcA_9Z.mp4')
+                            .card-body
+                                h4.card-title 这是电影标题
+                                p.card-desc 这是电影描述
+                            .card-footer
+                                small.text-muted 1 天前更新
+    #myModal.modal.fade.bd-example-modal-lg(tabindex='-1',role='dialog',aria-labelledby='myLargeModalLabel',
+    aria-hidden='true')
+        .modal-dialog.modal-lg
+            #videoModal.modal-content
+
+    include ./includes/script
+    script.
+        var player = null;
+
+        $(document).ready(function () {
+            $('#myModal').on('hdiien.bs.modal',function (e) {
+                if(player && player.pause) player.pause()
+            })
+
+            $('.card-img-top').click(function (e) {
+                var video = $(this).data('video')
+                var image = $(this).attr('src')
+
+                $('#myModal').modal('show')
+
+                if(!player){
+                    player = new DPlayer({
+                        container:document.getElementById('videoModal'),
+                        screenshot:true,
+                        video:{
+                            url:video,
+                            pic: image,
+                            thumbnails:image
+                        }
+                    })
+                }else{
+                    if(play.video.currentSrc !== video){
+                        player.switchVideo({
+                            url: video,
+                            pic: image,
+                            type: auto
+                        })
+                    }
+
+                }
+            })
+        })
